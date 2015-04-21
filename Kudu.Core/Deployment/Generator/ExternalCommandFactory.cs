@@ -42,6 +42,7 @@ namespace Kudu.Core.Deployment.Generator
             UpdateToDefaultIfNotSet(exe, WellKnownEnvironmentVariables.KreBitness, KreBitness, logger);
             UpdateToDefaultIfNotSet(exe, WellKnownEnvironmentVariables.KreNugetApiUrl, Constants.KreDefaultNugetApiUrl, logger);
             UpdateToDefaultIfNotSet(exe, WellKnownEnvironmentVariables.KvmPath, KvmPath, logger);
+            UpdateToDefaultIfNotSet(exe, WellKnownEnvironmentVariables.GoWebConfigTemplate, GoWebConfigTemplate, logger);
 
             bool isInPlace = false;
             string project = _deploymentSettings.GetValue(SettingsKeys.Project);
@@ -173,6 +174,14 @@ namespace Kudu.Core.Deployment.Generator
             }
         }
 
+        private string GoWebConfigTemplate
+        {
+            get
+            {
+                return Path.Combine(_environment.ScriptPath, "go.web.config.template");
+            }
+        }
+
         private void UpdateToDefaultIfNotSet(Executable exe, string key, string defaultValue, ILogger logger)
         {
             var value = _deploymentSettings.GetValue(key);
@@ -186,7 +195,7 @@ namespace Kudu.Core.Deployment.Generator
                 exe.EnvironmentVariables[key] = value;
             }
         }
-
+        
         private static string QuotePath(string path)
         {
             return String.Concat('"', path, '"');

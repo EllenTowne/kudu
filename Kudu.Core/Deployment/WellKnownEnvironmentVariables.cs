@@ -38,5 +38,7 @@
         public const string KreBitness = "SCM_KRE_ARCH";
 
         public const string SiteBitness = "SITE_BITNESS";
+
+        public const string GoWebConfigTemplate = "GO_WEB_CONFIG_TEMPLATE";
     }
 }
